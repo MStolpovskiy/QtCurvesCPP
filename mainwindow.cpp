@@ -13,3 +13,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// Some pointless comment
