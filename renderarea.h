@@ -18,8 +18,11 @@ public:
                  HuygensCycloid, HypoCycloid,
                    Line};
 
-    void SetBackgroundColor(QColor color) { mBackgroundColor = color; }
+    void SetBackgroundColor(QColor color) { mBackgroundColor = color; repaint(); }
     QColor GetBackgroundColor() const { return mBackgroundColor; }
+
+    void SetShapeColor(QColor color) { mShapeColor = color; repaint(); }
+    QColor GetShapeColor() const { return mShapeColor; }
 
     void SetShape(ShapeType shape) { mShape = shape; on_shape_changed();}
     ShapeType GetShape() const {return mShape; }

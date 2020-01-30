@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,58 +16,74 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::update_ui() {
-    this->ui->spinScale->setValue(this->ui->renderArea->GetScale());
-    this->ui->spinIntervalLength->setValue(this->ui->renderArea->GetIntervalLength());
-    this->ui->spinCount->setValue(this->ui->renderArea->GetStepCount());
+    ui->spinScale->setValue(this->ui->renderArea->GetScale());
+    ui->spinIntervalLength->setValue(this->ui->renderArea->GetIntervalLength());
+    ui->spinCount->setValue(this->ui->renderArea->GetStepCount());
 }
 
 void MainWindow::on_btnAstroid_clicked()
 {
-    this->ui->renderArea->SetShape(RenderArea::Astroid);
-    this->ui->renderArea->repaint();
+    ui->renderArea->SetShape(RenderArea::Astroid);
+    ui->renderArea->repaint();
     update_ui();
 }
 
 void MainWindow::on_btnCycloid_clicked()
 {
-    this->ui->renderArea->SetShape(RenderArea::Cycloid);
-    this->ui->renderArea->repaint();
+    ui->renderArea->SetShape(RenderArea::Cycloid);
+    ui->renderArea->repaint();
     update_ui();
 }
 
 void MainWindow::on_btnHuygens_clicked()
 {
-    this->ui->renderArea->SetShape(RenderArea::HuygensCycloid);
-    this->ui->renderArea->repaint();
+    ui->renderArea->SetShape(RenderArea::HuygensCycloid);
+    ui->renderArea->repaint();
     update_ui();
 }
 
 void MainWindow::on_btnHypo_clicked()
 {
-    this->ui->renderArea->SetShape(RenderArea::HypoCycloid);
-    this->ui->renderArea->repaint();
+    ui->renderArea->SetShape(RenderArea::HypoCycloid);
+    ui->renderArea->repaint();
     update_ui();
 }
 
 
 void MainWindow::on_btnLine_clicked()
 {
-    this->ui->renderArea->SetShape(RenderArea::Line);
-    this->ui->renderArea->repaint();
+    ui->renderArea->SetShape(RenderArea::Line);
+    ui->renderArea->repaint();
     update_ui();
 }
 
 void MainWindow::on_spinScale_valueChanged(double scale)
 {
-    this->ui->renderArea->SetScale(scale);
+    ui->renderArea->SetScale(scale);
 }
 
 void MainWindow::on_spinIntervalLength_valueChanged(double length)
 {
-    this->ui->renderArea->SetIntervalLength(length);
+    ui->renderArea->SetIntervalLength(length);
 }
 
 void MainWindow::on_spinCount_valueChanged(int stepCount)
 {
-    this->ui->renderArea->SetStepCount(stepCount);
+    ui->renderArea->SetStepCount(stepCount);
+}
+
+void MainWindow::on_btnBackgroundColor_clicked()
+{
+    QColor color = QColorDialog::getColor(ui->renderArea->GetBackgroundColor(),
+                                          this,
+                                          "Select color");
+    ui->renderArea->SetBackgroundColor(color);
+}
+
+void MainWindow::on_btnLineColor_clicked()
+{
+    QColor color = QColorDialog::getColor(ui->renderArea->GetShapeColor(),
+                                          this,
+                                          "Select color");
+    ui->renderArea->SetShapeColor(color);
 }
