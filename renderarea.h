@@ -24,6 +24,12 @@ public:
     void SetShape(ShapeType shape) { mShape = shape; on_shape_changed();}
     ShapeType GetShape() const {return mShape; }
 
+    void SetScale(float scale) { mScale = scale; repaint (); }
+    float GetScale() const { return mScale; }
+
+    void SetIntervalLength(float intLength) { mIntervalLength = intLength; repaint();}
+    float GetIntervalLength() const { return mIntervalLength; }
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
