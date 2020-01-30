@@ -32,7 +32,7 @@ void RenderArea::on_shape_changed() {
         break;
     case RenderArea::HuygensCycloid:
         mScale = 4;
-        mIntervalLength = 4 * M_PI;
+        mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
     case RenderArea::HypoCycloid:

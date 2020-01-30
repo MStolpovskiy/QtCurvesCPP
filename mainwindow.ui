@@ -165,7 +165,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spinCount"/>
+      <widget class="QSpinBox" name="spinCount">
+       <property name="maximum">
+        <number>512</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>

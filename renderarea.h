@@ -30,6 +30,9 @@ public:
     void SetIntervalLength(float intLength) { mIntervalLength = intLength; repaint();}
     float GetIntervalLength() const { return mIntervalLength; }
 
+    void SetStepCount(int stepCount) { mStepCount = stepCount; repaint(); }
+    int GetStepCount() const { return mStepCount; }
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
