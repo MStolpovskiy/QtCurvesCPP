@@ -41,9 +41,9 @@ void RenderArea::on_shape_changed() {
         mStepCount = 256;
         break;
     case RenderArea::Line:
-        mScale = 50; // line length in pixels
+        mScale = 100; // line length in pixels
         mIntervalLength = 1; // not really needed
-        mStepCount = 50;
+        mStepCount = 2;
     default:
         break;
     }
@@ -103,8 +103,8 @@ QPointF RenderArea::compute_hypo(float t) {
 
 QPointF RenderArea::compute_line(float t) {
     return QPointF(
-                1 - t, // X
-                1 - t  // Y
+                t, // X
+                t  // Y
                 );
 }
 
@@ -122,11 +122,19 @@ void RenderArea::paintEvent(QPaintEvent *event) {
 
     QPoint center = this->rect().center();
     float step = mIntervalLength / mStepCount;
+    QPoint lastPixel;
     for (float t=0; t<mIntervalLength; t+=step) {
         QPointF point = compute(t);
         QPoint pixel;
         pixel.setX(point.x() * mScale + center.x());
         pixel.setY(point.y() * mScale + center.y());
-        painter.drawPoint(pixel);
+        if (t == 0) {
+            lastPixel = pixel;
+            continue;
+        }
+//        painter.drawPoint(pixel);
+        QLineF line(pixel, lastPixel);
+        painter.drawLine(line);
+        lastPixel = pixel;
     }
 }
