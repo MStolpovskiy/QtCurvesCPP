@@ -40,6 +40,10 @@ void RenderArea::on_shape_changed() {
         mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
+    case RenderArea::Line:
+        mScale = 50; // line length in pixels
+        mIntervalLength = 1; // not really needed
+        mStepCount = 50;
     default:
         break;
     }
@@ -58,6 +62,9 @@ QPointF RenderArea::compute(float t) {
         break;
     case RenderArea::HypoCycloid:
         return compute_hypo(t);
+        break;
+    case RenderArea::Line:
+        return compute_line(t);
         break;
     default:
         break;
@@ -93,6 +100,14 @@ QPointF RenderArea::compute_hypo(float t) {
                 1.5 * (2 * sin(t) - sin(2 * t))  // Y
                 );
 }
+
+QPointF RenderArea::compute_line(float t) {
+    return QPointF(
+                1 - t, // X
+                1 - t  // Y
+                );
+}
+
 
 void RenderArea::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
