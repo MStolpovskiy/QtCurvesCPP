@@ -21,6 +21,7 @@ void MainWindow::update_ui() {
     ui->spinCount->setValue(this->ui->renderArea->GetStepCount());
 }
 
+// curve buttons
 void MainWindow::on_btnAstroid_clicked()
 {
     ui->renderArea->SetShape(RenderArea::Astroid);
@@ -57,6 +58,36 @@ void MainWindow::on_btnLine_clicked()
     update_ui();
 }
 
+void MainWindow::on_btnCircle_clicked()
+{
+    ui->renderArea->SetShape(RenderArea::Circle);
+    ui->renderArea->repaint();
+    update_ui();
+}
+
+void MainWindow::on_btnEllipse_clicked()
+{
+    ui->renderArea->SetShape(RenderArea::Ellipse);
+    ui->renderArea->repaint();
+    update_ui();
+}
+
+void MainWindow::on_btnFancy_clicked()
+{
+    ui->renderArea->SetShape(RenderArea::Fancy);
+    ui->renderArea->repaint();
+    update_ui();
+}
+
+void MainWindow::on_btnStarfish_clicked()
+{
+    ui->renderArea->SetShape(RenderArea::Starfish);
+    ui->renderArea->repaint();
+    update_ui();
+}
+
+
+// Spiners
 void MainWindow::on_spinScale_valueChanged(double scale)
 {
     ui->renderArea->SetScale(scale);
@@ -72,6 +103,7 @@ void MainWindow::on_spinCount_valueChanged(int stepCount)
     ui->renderArea->SetStepCount(stepCount);
 }
 
+// Color buttons
 void MainWindow::on_btnBackgroundColor_clicked()
 {
     QColor color = QColorDialog::getColor(ui->renderArea->GetBackgroundColor(),
@@ -87,3 +119,4 @@ void MainWindow::on_btnLineColor_clicked()
                                           "Select color");
     ui->renderArea->SetShapeColor(color);
 }
+

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
-    <height>369</height>
+    <width>629</width>
+    <height>547</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,15 +19,22 @@
      <rect>
       <x>11</x>
       <y>42</y>
-      <width>448</width>
-      <height>266</height>
+      <width>580</width>
+      <height>446</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="RenderArea" name="renderArea" native="true"/>
+        <widget class="RenderArea" name="renderArea" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>400</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -100,6 +107,34 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="btnCircle">
+         <property name="text">
+          <string>Circle</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnEllipse">
+         <property name="text">
+          <string>Ellipse</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnFancy">
+         <property name="text">
+          <string>Fancy</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnStarfish">
+         <property name="text">
+          <string>Starfish</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLabel" name="label">
@@ -121,6 +156,9 @@
            </property>
            <property name="decimals">
             <number>1</number>
+           </property>
+           <property name="maximum">
+            <double>150.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.100000000000000</double>

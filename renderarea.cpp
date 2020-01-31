@@ -4,9 +4,10 @@
 RenderArea::RenderArea(QWidget *parent) :
     QWidget(parent),
     mBackgroundColor(QColor(0, 0, 255)),
-    mShapeColor(QColor(255, 255, 255)),
     mShape(Astroid)
 {
+    mPen.setWidth(2);
+    mPen.setColor(QColor(255, 255, 255));
     on_shape_changed();
 }
 
@@ -21,22 +22,22 @@ QSize RenderArea::sizeHint() const {
 void RenderArea::on_shape_changed() {
     switch (mShape) {
     case RenderArea::Astroid:
-        mScale = 40;
+        mScale = 90;
         mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
     case RenderArea::Cycloid:
-        mScale = 4;
-        mIntervalLength = 6 * M_PI;
+        mScale = 10;
+        mIntervalLength = 4 * M_PI;
         mStepCount = 128;
         break;
     case RenderArea::HuygensCycloid:
-        mScale = 4;
+        mScale = 10;
         mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
     case RenderArea::HypoCycloid:
-        mScale = 15;
+        mScale = 40;
         mIntervalLength = 2 * M_PI;
         mStepCount = 256;
         break;
@@ -44,6 +45,26 @@ void RenderArea::on_shape_changed() {
         mScale = 100; // line length in pixels
         mIntervalLength = 1; // not really needed
         mStepCount = 2;
+    case RenderArea::Circle:
+        mScale = 100;
+        mIntervalLength = 2 * M_PI;
+        mStepCount = 128;
+        break;
+    case RenderArea::Ellipse:
+        mScale = 75;
+        mIntervalLength = 2 * M_PI;
+        mStepCount = 128;
+        break;
+    case RenderArea::Fancy:
+        mScale = 10;
+        mIntervalLength = 12 * M_PI;
+        mStepCount = 512;
+        break;
+    case RenderArea::Starfish:
+        mScale = 25;
+        mIntervalLength = 6 * M_PI;
+        mStepCount = 256;
+        break;
     default:
         break;
     }
@@ -65,6 +86,18 @@ QPointF RenderArea::compute(float t) {
         break;
     case RenderArea::Line:
         return compute_line(t);
+        break;
+    case RenderArea::Circle:
+        return compute_circle(t);
+        break;
+    case RenderArea::Ellipse:
+        return compute_ellipse(t);
+        break;
+    case RenderArea::Fancy:
+        return compute_fancy(t);
+        break;
+    case RenderArea::Starfish:
+        return compute_starfish(t);
         break;
     default:
         break;
@@ -108,6 +141,34 @@ QPointF RenderArea::compute_line(float t) {
                 );
 }
 
+QPointF RenderArea::compute_circle(float t) {
+    return QPointF(
+                cos(t), // X
+                sin(t)  // Y
+                );
+}
+
+QPointF RenderArea::compute_ellipse(float t) {
+    float a = 2., b = 1.1;
+    return QPointF(
+                a * cos(t), // X
+                b * sin(t)  // Y
+                );
+}
+
+QPointF RenderArea::compute_fancy(float t) {
+    float a = 11., b = 6.;
+    float x = a * cos(t) - b * cos (a / b * t);
+    float y = a * sin(t) - b * sin (a / b * t);
+    return QPointF(x, y);
+}
+
+QPointF RenderArea::compute_starfish(float t) {
+    float R = 5., r = 3., d = 5.;
+    float x = (R - r) * cos(t) + d * cos ((R - r) / r * t);
+    float y = (R - r) * sin(t) - d * sin ((R - r) / r * t);
+    return QPointF(x, y);
+}
 
 void RenderArea::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
@@ -115,7 +176,7 @@ void RenderArea::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
     painter.setBrush(mBackgroundColor);
-    painter.setPen(mShapeColor);
+    painter.setPen(mPen);
 
     // drawing area
     painter.drawRect(this->rect());
@@ -123,7 +184,7 @@ void RenderArea::paintEvent(QPaintEvent *event) {
     QPoint center = this->rect().center();
     float step = mIntervalLength / mStepCount;
     QPoint lastPixel;
-    for (float t=0; t<mIntervalLength; t+=step) {
+    for (float t=0; t<mIntervalLength + step; t+=step) {
         QPointF point = compute(t);
         QPoint pixel;
         pixel.setX(point.x() * mScale + center.x());

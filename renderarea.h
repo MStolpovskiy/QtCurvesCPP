@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QColor>
+#include <QPen>
 
 class RenderArea : public QWidget
 {
@@ -15,14 +16,15 @@ public:
     QSize sizeHint() const override;
 
     enum ShapeType {Astroid, Cycloid,
-                 HuygensCycloid, HypoCycloid,
-                   Line};
+                    HuygensCycloid, HypoCycloid,
+                    Line, Circle, Ellipse,
+                    Fancy, Starfish};
 
     void SetBackgroundColor(QColor color) { mBackgroundColor = color; repaint(); }
     QColor GetBackgroundColor() const { return mBackgroundColor; }
 
-    void SetShapeColor(QColor color) { mShapeColor = color; repaint(); }
-    QColor GetShapeColor() const { return mShapeColor; }
+    void SetShapeColor(QColor color) { mPen.setColor(color); repaint(); }
+    QColor GetShapeColor() const { return mPen.color(); }
 
     void SetShape(ShapeType shape) { mShape = shape; on_shape_changed();}
     ShapeType GetShape() const {return mShape; }
@@ -41,8 +43,8 @@ protected:
 
 private:
     QColor mBackgroundColor;
-    QColor mShapeColor;
     ShapeType mShape;
+    QPen mPen;
 
     float mIntervalLength;
     float mScale;
@@ -56,6 +58,10 @@ private:
     QPointF compute_huygens(float);
     QPointF compute_hypo(float);
     QPointF compute_line(float);
+    QPointF compute_circle(float);
+    QPointF compute_ellipse(float);
+    QPointF compute_fancy(float);
+    QPointF compute_starfish(float);
 
 signals:
 
