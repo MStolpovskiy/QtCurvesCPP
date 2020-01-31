@@ -86,6 +86,20 @@ void MainWindow::on_btnStarfish_clicked()
     update_ui();
 }
 
+void MainWindow::on_btnCloud_clicked()
+{
+    ui->renderArea->SetShape(RenderArea::Cloud);
+    ui->renderArea->repaint();
+    update_ui();
+}
+
+void MainWindow::on_btnStar_clicked()
+{
+    ui->renderArea->SetShape(RenderArea::Star);
+    ui->renderArea->repaint();
+    update_ui();
+}
+
 
 // Spiners
 void MainWindow::on_spinScale_valueChanged(double scale)
@@ -119,4 +133,3 @@ void MainWindow::on_btnLineColor_clicked()
                                           "Select color");
     ui->renderArea->SetShapeColor(color);
 }
-

@@ -65,6 +65,12 @@ void RenderArea::on_shape_changed() {
         mIntervalLength = 6 * M_PI;
         mStepCount = 256;
         break;
+    case RenderArea::Cloud:
+    case RenderArea::Star:
+        mScale = 10;
+        mIntervalLength = 28 * M_PI;
+        mStepCount = 256;
+        break;
     default:
         break;
     }
@@ -98,6 +104,12 @@ QPointF RenderArea::compute(float t) {
         break;
     case RenderArea::Starfish:
         return compute_starfish(t);
+        break;
+    case RenderArea::Cloud:
+        return compute_cloud(t, -1);
+        break;
+    case RenderArea::Star:
+        return compute_cloud(t, +1);
         break;
     default:
         break;
@@ -167,6 +179,13 @@ QPointF RenderArea::compute_starfish(float t) {
     float R = 5., r = 3., d = 5.;
     float x = (R - r) * cos(t) + d * cos ((R - r) / r * t);
     float y = (R - r) * sin(t) - d * sin ((R - r) / r * t);
+    return QPointF(x, y);
+}
+
+QPointF RenderArea::compute_cloud(float t, int sign = -1) {
+    float a = 14., b = 1.;
+    float x = (a + b) * cos(t * b / a) + sign * b * cos ((a + b) / a * t);
+    float y = (a + b) * sin(t * b / a) - b * sin ((a + b) / a * t);
     return QPointF(x, y);
 }
 

@@ -20,7 +20,7 @@
       <x>11</x>
       <y>42</y>
       <width>580</width>
-      <height>446</height>
+      <height>470</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -131,6 +131,20 @@
         <widget class="QPushButton" name="btnStarfish">
          <property name="text">
           <string>Starfish</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnCloud">
+         <property name="text">
+          <string>Cloud</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnStar">
+         <property name="text">
+          <string>Star</string>
          </property>
         </widget>
        </item>

@@ -18,7 +18,7 @@ public:
     enum ShapeType {Astroid, Cycloid,
                     HuygensCycloid, HypoCycloid,
                     Line, Circle, Ellipse,
-                    Fancy, Starfish};
+                    Fancy, Starfish, Cloud, Star};
 
     void SetBackgroundColor(QColor color) { mBackgroundColor = color; repaint(); }
     QColor GetBackgroundColor() const { return mBackgroundColor; }
@@ -62,6 +62,7 @@ private:
     QPointF compute_ellipse(float);
     QPointF compute_fancy(float);
     QPointF compute_starfish(float);
+    QPointF compute_cloud(float, int);
 
 signals:
 
